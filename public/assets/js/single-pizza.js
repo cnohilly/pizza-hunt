@@ -31,6 +31,28 @@ function getPizza() {
     });
 }
 
+function deletePizza() {
+  const searchParams = new URLSearchParams(document.location.search.substring(1));
+  const pizzaId = searchParams.get('id');
+
+  // attempts to delete
+  fetch(`/api/pizzas/${pizzaId}`, {
+    method: 'DELETE',
+    headers: {
+      Accept: 'application/json',
+      'Content-Type': 'application/json'
+    }
+  })
+    .then(response => {
+      if (!response.ok) {
+        throw new Error({ message: 'Something went wrong!' });
+      }
+      return response.json();
+    }).then(response => {
+      document.location = '/';
+    });
+}
+
 function printPizza(pizzaData) {
   console.log(pizzaData);
 
@@ -178,5 +200,6 @@ $backBtn.addEventListener('click', function () {
 
 $newCommentForm.addEventListener('submit', handleNewCommentSubmit);
 $commentSection.addEventListener('submit', handleNewReplySubmit);
+document.getElementById('delete-btn').addEventListener('click', deletePizza);
 
 getPizza();

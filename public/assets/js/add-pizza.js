@@ -62,7 +62,8 @@ const handlePizzaSubmit = event => {
   })
     .then(response => response.json())
     .then(postResponse => {
-      alert('Pizza created successfully!');
+      // alert('Pizza created successfully!');
+      document.location = `/pizza?id=${postResponse._id}`;
       console.log(postResponse);
     })
     .catch(err => {
